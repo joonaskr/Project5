@@ -11,7 +11,7 @@ describe('Issue create', () => {
       });
   });
 
-  it.only('Should create a Task issue using random data and validate it on the board', () => {
+  it('Should create a Task issue using random data and validate it on the board', () => {
     const title = faker.lorem.word();
     const description = faker.lorem.words(5);
   
