@@ -21,6 +21,7 @@ describe('Issue create', () => {
       // Otherwise filling title first sometimes doesn't work due to web page implementation
       cy.get('input[name="title"]').type('TEST_TITLE');
       cy.get('input[name="title"]').should('have.value', 'TEST_TITLE');
+      
 
       // Open issue type dropdown and choose Story
       cy.get('[data-testid="select:type"]').click();
