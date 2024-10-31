@@ -14,6 +14,7 @@ class IssueModal {
         this.cancelDeletionButtonName = "Cancel";
         this.confirmationPopup = '[data-testid="modal:confirm"]';
         this.closeDetailModalButton = '[data-testid="icon:close"]';
+
     }
 
     getIssueModal() {
@@ -115,6 +116,23 @@ class IssueModal {
     closeDetailModal() {
         cy.get(this.issueDetailModal).get(this.closeDetailModalButton).first().click();
         cy.get(this.issueDetailModal).should('not.exist');
+    }
+
+    openFirstIssue() {
+        cy.get(this.backlogList)
+            .first()
+            .find(this.issuesList)
+            .first()
+            .click();
+        cy.get(this.issueDetailModal).should("be.visible");
+    }
+
+    isIssueDeleted() {
+        cy.get(this.issueDetailModal).should("not.exist");
+    }
+
+    isIssueVisible() {
+        cy.get(this.issueDetailModal).should("be.visible");
     }
 }
 

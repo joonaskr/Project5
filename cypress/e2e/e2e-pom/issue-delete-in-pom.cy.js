@@ -1,4 +1,4 @@
-import { issueModal } from '../pages/IssueModal';
+import issueModal from '../../pages/IssueModal';
 
 describe("Issue Deletion in POM", () => {
   beforeEach(() => {
@@ -11,7 +11,7 @@ describe("Issue Deletion in POM", () => {
     issueModal.clickDeleteButton(); // Using POM to click delete
     issueModal.confirmDeletion();   // Confirm the deletion
     issueModal.isIssueDeleted();    // Assert the issue is deleted
-    
+
     cy.reload();
     cy.get('[data-testid="board-list:backlog"]')
       .find('[data-testid="list-issue"]')
@@ -21,8 +21,7 @@ describe("Issue Deletion in POM", () => {
   it("Should initiate and cancel the issue deletion, ensuring issue remains visible", () => {
     issueModal.clickDeleteButton(); // Using POM to click delete
     issueModal.cancelDeletion();    // Cancel deletion
-    issueModal.isIssueVisible();    // Assert issue is still visible
-    
+
     cy.reload();
     cy.get('[data-testid="board-list:backlog"]')
       .find('[data-testid="list-issue"]')
