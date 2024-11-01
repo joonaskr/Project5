@@ -134,6 +134,21 @@ class IssueModal {
     isIssueVisible() {
         cy.get(this.issueDetailModal).should("be.visible");
     }
+
+    verifyIssueCount(expectedCount) {
+        cy.get(this.backlogList)
+            .find(this.issuesList)
+            .should("have.length", expectedCount);
+    }
+
+    getBacklogIssueCount() {
+        return cy.get(this.backlogList)
+            .find(this.issuesList)
+            .then((issues) => {
+                const issueCount = issues.length;
+                return issueCount;
+            });
+    }
 }
 
 export default new IssueModal();

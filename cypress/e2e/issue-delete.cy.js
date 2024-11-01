@@ -1,9 +1,7 @@
 describe('Issue Deletion', () => {
   beforeEach(() => {
     cy.visit('/');
-    cy.url()
-      .should('eq', `${Cypress.env('baseUrl')}project/board`)
-      .then(() => {
+    cy.url().should('eq', `${Cypress.env('baseUrl')}project/board`).then(() => {
         cy.get('[data-testid="board-list:backlog"]')
           .first()
           .find('[data-testid="list-issue"]')
@@ -23,7 +21,7 @@ describe('Issue Deletion', () => {
     cy.reload();
     cy.get('[data-testid="board-list:backlog"]')
       .find('[data-testid="list-issue"]')
-      .should('have.length.lessThan', 5);
+      .should('have.length.lessThan', 4);
   });
 
   it('Initiate and cancel the issue deletion and validate it is still visible on the board', () => {
