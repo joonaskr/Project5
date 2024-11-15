@@ -150,5 +150,4 @@ class IssueModal {
             });
     }
 }
-
 export default new IssueModal();
