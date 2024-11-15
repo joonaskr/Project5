@@ -7,7 +7,7 @@ describe('Issue details editing', () => {
     });
   });
 
-  it('Should update type, status, assignees, reporter, priority successfully', () => {
+  it('Update type, status, assignees, reporter, priority successfully', () => {
     getIssueDetailsModal().within(() => {
       cy.get('[data-testid="select:type"]').click('bottomRight');
       cy.get('[data-testid="select-option:Story"]')
@@ -36,7 +36,7 @@ describe('Issue details editing', () => {
     });
   });
 
-  it('Should update title, description successfully', () => {
+  it('Update title, description successfully', () => {
     const title = 'TEST_TITLE';
     const description = 'TEST_DESCRIPTION';
 
@@ -60,6 +60,32 @@ describe('Issue details editing', () => {
       cy.get('.ql-snow').should('have.text', description);
     });
   });
+
+  it('Validate the Priority dropdown values', () => {
+    const expectedPriorityValues = ['Highest', 'Medium', 'Low', 'Lowest', 'High'];
+  
+    getIssueDetailsModal().within(() => {
+      cy.get('[data-testid="select:priority"]').click('bottomRight');
+      cy.get('[data-testid^="select-option:"]').should('be.visible');
+  
+      cy.get('[data-testid^="select-option:"]').each(($el, index) => {
+        const optionText = $el.text().trim();
+        cy.wrap(optionText).should('equal', expectedPriorityValues[index]);
+      });
+    });
+  });
+
+  it('Validate the reporters name contains only characters', () => {
+    const reporterSelector = '[data-testid="select:reporter"]'; 
+  
+    getIssueDetailsModal().within(() => {
+      cy.get(reporterSelector).then($el => {
+        const reporterName = $el.text().trim(); 
+        const regex = /^[A-Za-z\s]+$/;
+        expect(reporterName).to.match(regex);
+      });
+    });
+  });  
 
   const getIssueDetailsModal = () => cy.get('[data-testid="modal:issue-details"]');
 });

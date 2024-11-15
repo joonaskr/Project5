@@ -11,6 +11,24 @@ describe("Issue create", () => {
       });
   });
 
+  it('Remove unnecessary spaces from issue title on the board view', () => {
+    const titleWithSpaces = '   Hello world!   ';
+    const trimmedTitle = titleWithSpaces.trim();
+    
+    cy.contains('Create issue').click();
+    
+    cy.get('input[name="title"]')
+      .clear()
+      .type(titleWithSpaces);
+    
+    cy.contains('button', 'Create').click();
+    
+    cy.get('[data-testid="board-list:backlog"]').within(() => {
+      cy.contains(trimmedTitle).should('be.visible');
+    });
+  });
+  
+
   it("Should create a Task issue using random data and validate it on the board", () => {
     const title = faker.lorem.word();
     const description = faker.lorem.words(5);
